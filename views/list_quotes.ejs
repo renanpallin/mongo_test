@@ -29,6 +29,7 @@
 					<tr className="quote">
 						<td><%= quotes[i].name %></td>
 						<td><%= quotes[i].quote %></td>
+						<td><button name="<%= quotes[i]._id %>">Deletar</button></td>
 					</tr>
 				<% } %>
 
@@ -38,6 +39,27 @@
 
 	<!-- Margem -->
 	<div class="col-md-2"></div>
+
+	<script type="text/javascript">
+
+		/**
+		* getElementsByTagName NÃO retorna um array como eu pensava
+		* retorna um HTMLcollection. Aqui convertemos para array.
+		*/
+		var buttons = Array.from(document.getElementsByTagName('button'));
+
+		buttons.forEach(function(element){
+			element.onclick = function(){
+				window.location.href = 'delete?id=' + this.name;
+			};
+		});
+
+		// for(var i=0; i<buttons.length; i++){
+		// 	buttons[i].onclick = function(){
+		// 		window.location.href = 'delete?id=' + this.name;
+		// 	};
+		// }
+	</script>
 
 </body>
 </html>

@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // DB
-const MongoClient = require('mongodb').MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 var db;
 var table = "quotes";
 
@@ -53,4 +54,13 @@ app.get('/quotes/list', (req, res) => {
 		res.render('list_quotes.ejs', {quotes: results});
 	}); 
 	// res.send();
+});
+
+// Delete
+app.get('/quotes/delete', (req,res) => {
+	var retorno = db.collection(table).remove({_id:  mongodb.ObjectId(req.query.id)}, true);
+	console.log('deletando: ' + req.query.id);
+	// console.log('retorno: ' +  retorno);
+
+	res.redirect('/quotes/list');
 });
